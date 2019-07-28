@@ -13,7 +13,7 @@ This application does not use any build tools just Node.js and npm
 * Run npm install to install all the project's dependencies.
 
 # Running the app
-Run the app by executing npm start in the project directory.
+Run the app by executing "node nodejsscript.js" in the project directory.
 
 # Testing the application
 
