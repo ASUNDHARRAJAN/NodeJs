@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FORM VALUES INSERT INTO TABLE AND DELETE,EDIT THE TABLE VALUES USING JQUERY</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+
+body{
+  padding-top: 25px;
+}
+#myTable{
+  background: lightblue;
+ 
+}
+.btn-primary
+{
+margin-left:20px; 
+}
+</style>
+  <script type="text/javascript">
+
+$(document).ready(function () {
+	
+  $("input[id='NAME']").on("input", function(){
+  var regexp = /[^a-zA-Z]/;
+  if($(this).val().match(regexp)){
+    $(this).val( $(this).val().replace(regexp,'') );
+  }
+});		
+	
+  $("#modify").prop('disabled',true);
+  var counter=0;
+
+    $("#addrow").on("click", function () {
+
+      var tdID = $("input[id='ID']").val();
+
+      var MyRows = $("table[id='myTable']").find('tbody').find('tr');
+      
+
+      for (var i = 1; i < MyRows.length; i++) 
+      { 
+      var MyIndexValue = $(MyRows[i]).find('td:eq(0)');
+
+      if(MyIndexValue.text() == tdID)
+      {
+        
+        alert("ID already exited");
+
+         $("input[id='ID']").val(""); 
+        $("input[id='NAME']").val(""); 
+        $("textarea").val("");
+
+        return false;
+
+      }   
+       }
+
+
+        if($('#ID').val()!=''  && $('#NAME').val()!='' && $("textarea").val()!='')
+        {  
+       $('#myTable').append('<tr><td><h5>' +  $("input[id='ID']").val() + '</h5></td><td><h5>' + $("input[id='NAME']").val() + '</h5></td><td><h5>'+ $("textarea").val() +'</h5></td><td><input type="button" class="deleterow btn btn-md btn-danger"  value="Delete"></td><td><input type="button" class="Edit btn btn-md btn-warning"  value="Edit"></td></tr>');
+
+         $("input[id='ID']").val(""); 
+         $("input[id='NAME']").val(""); 
+         $("textarea").val("");
+         counter++; 
+       }
+       else if($('#ID').val()===''){
+        alert("Enter the ID");
+       }
+       else if($('#NAME').val()===''){
+        alert("Enter the NAME");
+       }
+       else if ($("textarea").val()===''){
+        alert("Enter the DESCRIPTION");
+       }        
+    });
+
+
+
+    $("#myTable").on('click','.Edit',function(){
+         // get the current row
+
+         var currentRow = $(this).closest("tr"); 
+          
+
+         var col1=currentRow.find("td:eq(0)").text();
+         var col2=currentRow.find("td:eq(1)").text(); 
+         var col3=currentRow.find("td:eq(2)").text();
+         
+         $("input[id='ID']").val(col1); 
+         $("input[id='NAME']").val(col2); 
+         $("textarea").val(col3); 
+
+         $("#addrow").prop('disabled',true);
+         $("#modify").prop('disabled',false);
+
+
+
+ });
+   
+
+     $("table.myTable").on("click", ".deleterow", function (event) {
+        $(this).closest("tr").remove();       
+        counter -= 1
+    });
+
+     $("#modify").click(function()
+     {
+     
+      var tdID = $("input[id='ID']").val();
+      var tdName = $("input[id='NAME']").val(); 
+      var tdDescription = $("textarea").val(); 
+       
+      var MyRows = $("table[id='myTable']").find('tbody').find('tr');
+      
+
+      for (var i = 1; i < MyRows.length; i++) 
+      { 
+      var MyIndexValue = $(MyRows[i]).find('td:eq(0)');
+
+      if(MyIndexValue.text() == tdID)
+      {
+        
+        $(MyRows[i]).find('td:eq(1)').text(tdName);
+        $(MyRows[i]).find('td:eq(2)').text(tdDescription);
+      }   
+     
+       }
+
+       $("input[id='ID']").val(""); 
+        $("input[id='NAME']").val(""); 
+        $("textarea").val("");
+
+         $("#addrow").prop('disabled',false);
+         $("#modify").prop('disabled',true);
+     
+      });
+
+     $("#reset").click(function()
+     {
+        $("input[id='ID']").val(""); 
+        $("input[id='NAME']").val(""); 
+        $("textarea").val("");
+     });
+
+});
+
+  </script>
+</head>
+<body>
+	 
+<div class="container">
+  <div style="text-align: center;">
+    <h3><b>FORM VALUES INSERT INTO TABLE AND DELETE,EDIT THE TABLE VALUES USING JQUERY</h3></b>
+  </div>
+  <form  class="jumbotron" method = "POST" action = "/">
+    <div class="row">
+    <div class="form-group col-lg-1"></div>
+    <div class="form-group col-lg-2">
+      <label for="ID"><b>ID:</b></label>
+    </div>
+    <div class="col-lg-8">
+      <input type="number" class="form-control" id="ID" name="ID" placeholder="Enter the ID"/>
+    </div>
+    </div>
+    <div class="row">
+    <div class="form-group col-lg-1"></div>
+    <div class="form-group col-lg-2">
+      <label for="NAME"><b>NAME:</b></label>
+    </div>
+    <div class="col-lg-8">
+      <input type="text" class="form-control" id="NAME" name="NAME" placeholder="Enter the Name">
+    </div>
+    </div>
+
+    
+     <div class="row">
+       <div class="form-group col-lg-1"></div>
+    <div class="form-group col-lg-2">
+      <label for="DESCRIPTION"><b>DESCRIPTION:</b></label>
+    </div>
+    <div class="col-lg-8">
+       <textarea class="form-control message" rows="5" id="DESCRIPTION" name="text" placeholder="Enter the Description"></textarea>
+    </div>
+    </div>
+      
+    <div class="row" style="text-align: center; padding-top: 20px;">
+      <div>
+          <button type="button" class="btn btn-lg btn-primary" id="addrow">SUBMIT</button>
+          <button type="button" class="btn btn-lg btn-primary" id="modify">MODIFY</button>
+          <button type="button" class="btn btn-lg btn-primary" id="reset">RESET</button>
+
+    </div>
+</form>
+
+    <table id="myTable" class="table table-striped myTable" style="margin-top: 50px;">
+    <thead>
+        <tr>
+            <td><h4>ID</h4></td>
+            <td><h4>NAME</h4></td>
+            <td><h4>DESCRIPTION</h4></td>
+            <td><h4>DELETE BUTTON</h4></td>
+            <td><h4>EDIT BUTTON</h4></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="col-sm-2"></td>
+            <td class="col-sm-2"></td>
+            <td class="col-sm-2"></td>
+            <td class="col-sm-2"></td>
+            <td class="col-sm-2"></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+</body>
+</html>
