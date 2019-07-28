@@ -1,6 +1,6 @@
 # Projet -Node JS
 
-Contains form and displaying form data in html table.
+Contains form and displaying form data in html table and edit and modify options the data in the table.
 
 # IDE And Tools
 
