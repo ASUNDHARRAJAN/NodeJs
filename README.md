@@ -8,7 +8,7 @@ This application does not use any build tools just Node.js and npm
 
 # App Setup
 
-* Clone this repository by executing git clone 
+* Clone this repository by executing git clone https://github.com/ASUNDHARRAJAN/NodeJs.git in your console. 
 * Enter the project directory with cd NodeJs-master.
 * Run npm install to install all the project's dependencies.
 
